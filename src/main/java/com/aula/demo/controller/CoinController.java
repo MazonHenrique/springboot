@@ -46,10 +46,10 @@ public class CoinController {
 		c3.setDateTime(new Timestamp(System.currentTimeMillis()));
 		
 		Coin c4 = new Coin();
-		c3.setName("ETHEREUM");
-		c3.setPrice(new BigDecimal(90));
-		c3.setQuantity(new BigDecimal(0.012));
-		c3.setDateTime(new Timestamp(System.currentTimeMillis()));
+		c4.setName("ETHEREUM");
+		c4.setPrice(new BigDecimal(100));
+		c4.setQuantity(new BigDecimal(0.012));
+		c4.setDateTime(new Timestamp(System.currentTimeMillis()));
 		
 		coinRepository.insert(c1);
 		coinRepository.insert(c2);
