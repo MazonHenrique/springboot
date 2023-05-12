@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.aula.demo.entity.Coin;
 
-import dto.CoinDTO;
+import dto.CoinTransactionDTO;
 
 @Repository
 @EnableAutoConfiguration
@@ -24,6 +24,8 @@ public class CoinRepository {
 	private static String SELCT_BY_NAME = "select * from coin where name = ?";
 	
 	private static String DELETE = "delete from coin where id = ?";
+	
+	private static String UPDATE = "update coin set name = ?, price = ?, quantity = ? where id = ?";
 	
 	private JdbcTemplate jdbcTemplate;
 	
@@ -41,12 +43,23 @@ public class CoinRepository {
 		jdbcTemplate.update(INSERT, attr);
 		return coin;
 	}
+
+	public Coin update(Coin coin) {
+		Object[] attr = new Object[] {
+				coin.getName(),
+				coin.getPrice(),
+				coin.getQuantity(),
+				coin.getId()
+		}; 
+		jdbcTemplate.update(UPDATE, attr);
+		return coin;
+	}
 	
-	public List<CoinDTO> getALL(){
-		return jdbcTemplate.query(SELECT_ALL, new RowMapper<CoinDTO>(){
+	public List<CoinTransactionDTO> getALL(){
+		return jdbcTemplate.query(SELECT_ALL, new RowMapper<CoinTransactionDTO>(){
 			@Override
-			public CoinDTO mapRow (ResultSet rs, int rowNum) throws SQLException{
-				CoinDTO coin = new CoinDTO();
+			public CoinTransactionDTO mapRow (ResultSet rs, int rowNum) throws SQLException{
+				CoinTransactionDTO coin = new CoinTransactionDTO();
 				coin.setName(rs.getString("name"));
 				coin.setQuantity(rs.getBigDecimal("quantity"));
 				return coin;

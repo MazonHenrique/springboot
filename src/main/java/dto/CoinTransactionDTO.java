@@ -2,10 +2,11 @@ package dto;
 
 import java.math.BigDecimal;
 
-public class CoinDTO {
+public class CoinTransactionDTO {
 	
 	private String name;
 	private BigDecimal quantity;
+	
 	public String getName() {
 		return name;
 	}
@@ -18,7 +19,4 @@ public class CoinDTO {
 	public void setQuantity(BigDecimal quantity) {
 		this.quantity = quantity;
 	}
-	
-	
-
 }
