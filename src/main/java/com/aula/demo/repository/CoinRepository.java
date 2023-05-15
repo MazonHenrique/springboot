@@ -9,9 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.aula.demo.dto.CoinTransactionDTO;
 import com.aula.demo.entity.Coin;
-
-import dto.CoinTransactionDTO;
 
 @Repository
 @EnableAutoConfiguration

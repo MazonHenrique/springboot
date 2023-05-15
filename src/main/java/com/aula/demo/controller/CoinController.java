@@ -83,16 +83,6 @@ public class CoinController {
 		}
 	}
 	
-//	@PutMapping()
-//	public ResponseEntity put(@RequestBody Coin coin) {
-//		try {
-//			coin.setDateTime(new Timestamp(System.currentTimeMillis()));
-//			return new ResponseEntity<>(coinRepository.update(coin), HttpStatus.OK);
-//		}catch(Exception error ){
-//			return new ResponseEntity<>(error.getMessage(), HttpStatus.NO_CONTENT);
-//		}
-//	}
-	
     @PutMapping()
     public ResponseEntity put(@RequestBody Coin coin){
         try{
