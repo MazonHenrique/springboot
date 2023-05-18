@@ -1,6 +1,8 @@
 package com.aula.demo.repository;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,13 +15,9 @@ import jakarta.persistence.TypedQuery;
 @EnableAutoConfiguration
 public class CoinRepository {
 
+	@Autowired
 	private EntityManager entityManager;
-	
-	public CoinRepository(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
-	
-	
+
 	@Transactional //Anotacao resposaval por pegar uma transação e apos persistir os dados fechar a transação
 	public Coin insert(Coin coin) {
 		//persistir os dados
@@ -27,6 +25,7 @@ public class CoinRepository {
 		return coin;
 	}
 	
+	//Usar essa anotation quando tem alteracao
 	@Transactional //Anotacao resposaval por pegar uma transação e apos persistir os dados fechar a transação
 	public Coin update(Coin coin) {
 		entityManager.merge(coin);
@@ -40,24 +39,15 @@ public class CoinRepository {
 		return query.getResultList();
 	}
 	
-	/*
+	
 	public List<Coin> getByName(String name){
-		Object[] attr = new Object[] {name}; 
-		return jdbcTemplate.query(SELCT_BY_NAME, new RowMapper<Coin>(){
-			@Override
-			public Coin mapRow (ResultSet rs, int rowNum) throws SQLException{
-				Coin coin = new Coin();
-				coin.setId(rs.getInt("id"));
-				coin.setName(rs.getString("name"));
-				coin.setPrice(rs.getBigDecimal("price"));
-				coin.setQuantity(rs.getBigDecimal("quantity"));
-				coin.setDateTime(rs.getTimestamp("datetime"));
-				
-				return coin;
-			}
-		}, attr);
+		String jpql = "select c from Coin c where c.name like :name";
+		TypedQuery<Coin> query = entityManager.createQuery(jpql, Coin.class);
+		query.setParameter("name", "%"+name+"%");
+		return query.getResultList();
 	}
 	
+	/*
 	public int remove(int id) {
 		return jdbcTemplate.update(DELETE, id);
 	}*/

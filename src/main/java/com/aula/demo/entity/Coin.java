@@ -61,7 +61,4 @@ public class Coin {
 	public void setDateTime(Timestamp dateTime) {
 		this.dateTime = dateTime;
 	}
-	
-	
-
 }
