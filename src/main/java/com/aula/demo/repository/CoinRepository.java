@@ -32,13 +32,11 @@ public class CoinRepository {
 		return coin;
 	}
 	
-	
 	public List<CoinTransactionDTO> getALL(){
 		String jpql = "select new com.aula.demo.dto.CoinTransactionDTO(c.name, sum(c.quantity)) from Coin c group by c.name";
 		TypedQuery<CoinTransactionDTO> query =  entityManager.createQuery(jpql, CoinTransactionDTO.class);
 		return query.getResultList();
 	}
-	
 	
 	public List<Coin> getByName(String name){
 		String jpql = "select c from Coin c where c.name like :name";
@@ -47,8 +45,13 @@ public class CoinRepository {
 		return query.getResultList();
 	}
 	
-	/*
-	public int remove(int id) {
-		return jdbcTemplate.update(DELETE, id);
-	}*/
+	@Transactional
+	public boolean remove(int id) {
+		Coin c = entityManager.find(Coin.class, id);
+		if(c == null){
+			throw new RuntimeException();
+		}
+		entityManager.remove(c);
+		return true;
+	}
 }
